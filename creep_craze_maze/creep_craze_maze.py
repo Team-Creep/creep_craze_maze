@@ -24,6 +24,10 @@ class Wall(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.y = y
         self.rect.x = x
+
+def thisisatest_code(x, y):
+    return (x + y)
+
  
  
 class Player(pygame.sprite.Sprite):
