@@ -166,18 +166,18 @@ class Room_three(Room):
  
  
 def main():
-    """ Main Program """
+    """ Call game to life """
  
-    # Call this function so the Pygame library can initialize itself
+    # Call this function so the Pygame library can initialize itsel
     pygame.init()
  
     # Create an 800x600 sized screen
     screen = pygame.display.set_mode([800, 600])
  
-    # Set the title of the window
-    pygame.display.set_caption('Maze Runner')
+
+    pygame.display.set_caption('Creep Craze Maze')
  
-    # Create the player paddle object
+    # Create the player
     player = Player(50, 50)
     movingsprites = pygame.sprite.Group()
     movingsprites.add(player)
@@ -201,8 +201,6 @@ def main():
     done = False
  
     while not done:
- 
-        # --- Event Processing ---
  
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
