@@ -1,14 +1,7 @@
 import pygame
- 
-# BLACK = (0, 0, 0)
-# WHITE = (255, 255, 255)
-# BLUE = (0, 0, 255)
-# GREEN = (0, 255, 0)
-# RED = (255, 0, 0)
-# PURPLE = (255, 0, 255)
+
  
  
-# gonna try a dict for this, why not? can't do it any other way because its too widely used. it is now 2:40 am. 
 BLACK = (0, 0, 0)
 WHITE = (232, 235, 237)
 BLUE = (50, 107, 168)
@@ -28,9 +21,7 @@ class Wall(pygame.sprite.Sprite):
         # found in the following docs, a super init allows us to set children/parent relationships between contructors. This allows us to pull and use the informatiton instead of passing variables around and pulling them in manually. it is more efficent.  
         # https://www.educative.io/edpresso/what-is-super-in-python
 
-        # pygame allows you to set a variable for the surface, I hope. 
-        # It is now 3 am, and I am crying. 
-        # It is more work to check and make sure everything is diferent, than to do the tutorial and learn. 
+        # pygame allows you to set a variable for the surface
         # https://www.pygame.org/docs/ref/surface.html
         self.image = pygame.Surface([width, height])
         self.image.fill(color)
@@ -60,8 +51,6 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.Surface([20, 20])
         self.image.fill(WHITE)
 
-
-        # THERE IS NOTHING WE CAN DO ABOUT THESE VARIABLES.
         # This sets up our starting position, using the aforementioned docs. 
         self.rect = self.image.get_rect()
         self.rect.y = y
@@ -76,11 +65,10 @@ class Player(pygame.sprite.Sprite):
         """ Docstring just to tell you the player can move using this. """
 
         # player can move along the x axis.
-        # It is now 330, and there is no end in sight. 
         self.rect.x += self.where_does_x_move_to
 
         # Lets find out if we are hitting a wall, that way there is resistance in the game
-        # ON SPRITE AND SPRITECOLLIDE> these are part of pygame> there is no changing htis basic structure.
+        # ON SPRITE AND SPRITECOLLIDE> these are part of pygame> there is no changing this basic structure.
         is_the_player_intersecting_at_all = pygame.sprite.spritecollide(self, walls, False)
         for h in is_the_player_intersecting_at_all:
 
@@ -101,22 +89,19 @@ class Player(pygame.sprite.Sprite):
         # Did this update cause us to hit a wall?
         is_the_player_intersecting_at_all = pygame.sprite.spritecollide(self, walls, False)
         for h in is_the_player_intersecting_at_all:
-            # If we are moving right, set our right side to the left side of
-            # the item we hit
             if self.where_does_x_move_to > 0:
                 self.rect.right = h.rect.left
             else:
-                # Otherwise if we are moving left, do the opposite.
                 self.rect.left = h.rect.right
  
         # Move up/down
         self.rect.y += self.where_does_y_move_to
  
-        # Check and see if we hit anything
+        # Did we hit?
         hit = pygame.sprite.spritecollide(self, walls, False)
         for h in hit:
  
-            # Reset our position based on the top/bottom of the object.
+            # Reset our player position based on position of object
             if self.where_does_y_move_to > 0:
                 self.rect.bottom = h.rect.top
             else:
@@ -141,9 +126,7 @@ class Room_one(Room):
     def __init__(self):
         super().__init__()
         # Make the walls. (x_pos, y_pos, width, height)
- 
-        # This is a list of walls. Each is in the form [x, y, width, height]
-        walls = [[0, 0, 20, 250, WHITE],
+         walls = [[0, 0, 20, 250, WHITE],
                  [0, 350, 20, 250, WHITE],
                  [780, 0, 20, 250, WHITE],
                  [780, 350, 20, 250, WHITE],
