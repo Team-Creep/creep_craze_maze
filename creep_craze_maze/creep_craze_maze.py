@@ -39,8 +39,9 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
  
         # Set height, width
-        self.image = pygame.Surface([15, 15])
-        self.image.fill(WHITE)
+        # self.image = pygame.Surface([15, 15])
+        # self.image.fill(WHITE)
+        self.image = pygame.image.load('assets/roger_25.png')
  
         # Make our top-left corner the passed-in location.
         self.rect = self.image.get_rect()
@@ -206,7 +207,7 @@ def main():
     while not done:
 
         seconds = (pygame.time.get_ticks() - ticks) / 1000
-        if seconds > 15:
+        if seconds > 30:
             break
         print(seconds)
  
@@ -268,7 +269,6 @@ def main():
  
         # --- Drawing ---
         screen.fill(BLACK)
- 
         movingsprites.draw(screen)
         current_room.wall_list.draw(screen)
  
