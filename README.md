@@ -11,8 +11,8 @@ Maze game written in Python and Pygame.
     - ```python creep_craze_maze.py```
 
 ### Keyboard Controls
-**up arrow**: walk up  
-**down arrow**: walk down  
-**left arrow**: walk left 
-**right arrow**: walk right  
-**esc**: end game  
+**up arrow**: walk up   
+**down arrow**: walk down   
+**left arrow**: walk left  
+**right arrow**: walk right    
+**esc**: end game    
