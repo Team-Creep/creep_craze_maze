@@ -197,17 +197,24 @@ def main():
     current_room = rooms[current_room_no]
  
     clock = pygame.time.Clock()
- 
+    
+    # timer
+    ticks = pygame.time.get_ticks()
+
     done = False
  
     while not done:
+
+        seconds = (pygame.time.get_ticks() - ticks) / 1000
+        if seconds > 15:
+            break
+        print(seconds)
  
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     done = True
 
- 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     player.speed(-5, 0)
@@ -229,7 +236,6 @@ def main():
                     player.speed(0, -5)
  
         # --- Game Logic ---
- 
         player.move(current_room.wall_list)
  
         if player.rect.x < -15:
@@ -269,7 +275,7 @@ def main():
         pygame.display.flip()
  
         clock.tick(60)
- 
+    print("TIME'S UP!")
     pygame.quit()
  
 if __name__ == "__main__":
