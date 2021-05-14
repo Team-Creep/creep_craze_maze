@@ -1,21 +1,18 @@
 import pygame
-
- 
  
 BLACK = (0, 0, 0)
 WHITE = (232, 235, 237)
 BLUE = (50, 107, 168)
 GREEN = (50, 168, 82)
 RED = (214, 41, 203)
+DARKRED = (204, 0, 0)
 PURPLE = (151, 50, 168)
 
 class Wall(pygame.sprite.Sprite):
-    """ This is to construct a wall. bare with me for proof I learned this. it's only to SET UP WHAT WE NEED TO CRETE THE LANDSCAPE> SO SORRY IT CANT BE CHANGED MUCH """
-
-    # initialize the construction. You need a self, you need axis of x and y, width, height and color get passed in. THESE ARE PRESET IN OTHER AREAS OF THE CODe> RENAMING THEM WOULD MAKE IT HARDER TO UNDERSTAND> I WILL NOT BE RENAMING THEM. 
+    """This is to construct a wall. Sets up what we need to create a landscape."""
+    # initialize the construction. You need a self, you need axis of x and y, width, height and color get passed in.
     # rect is apart of the pygame library. Information on use can be found here 
     # https://www.pygame.org/docs/ref/rect.html
-    # in such case: USAGE OF THESE VARIABLE HAVE TO BE NAMED HOW THEY ARE. 
     def __init__(self, x, y, width, height, color):
         super().__init__()
         # found in the following docs, a super init allows us to set children/parent relationships between contructors. This allows us to pull and use the informatiton instead of passing variables around and pulling them in manually. it is more efficent.  
@@ -30,26 +27,24 @@ class Wall(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.y = y
         self.rect.x = x
-
-
- 
  
 class Player(pygame.sprite.Sprite):
     """ Allow the player to do things. """
 
     # Sets speed of x, y positions. x needs to be 0, y can be upped, but it's impossible to move after 4!
-
     where_does_x_move_to = 0
-    where_does_y_move_to = 3
+    where_does_y_move_to = 0
 
     def __init__(self, x, y):
         # Inits are widely used and important. 
-
         super().__init__()
         # look in the Wall class, for information on why we use this instead of a regular class. setup. 
 
-        self.image = pygame.Surface([20, 20])
-        self.image.fill(WHITE)
+        # self.image = pygame.Surface([20, 20])
+        # self.image.fill(WHITE)
+        self.image = pygame.image.load('assets/roger.png')
+        self.hexx = pygame.image.load('assets/Hexx.png')
+        self.vince = pygame.image.load('assets/vince.png')
 
         # This sets up our starting position, using the aforementioned docs. 
         self.rect = self.image.get_rect()
@@ -68,7 +63,6 @@ class Player(pygame.sprite.Sprite):
         self.rect.x += self.where_does_x_move_to
 
         # Lets find out if we are hitting a wall, that way there is resistance in the game
-        # ON SPRITE AND SPRITECOLLIDE> these are part of pygame> there is no changing this basic structure.
         is_the_player_intersecting_at_all = pygame.sprite.spritecollide(self, walls, False)
         for h in is_the_player_intersecting_at_all:
 
@@ -125,15 +119,16 @@ class Room_one(Room):
     """This creates all the walls in room 1"""
     def __init__(self):
         super().__init__()
-        # Make the walls. (x_pos, y_pos, width, height)
-         walls = [[0, 0, 20, 250, WHITE],
-                 [0, 350, 20, 250, WHITE],
-                 [780, 0, 20, 250, WHITE],
-                 [780, 350, 20, 250, WHITE],
-                 [20, 0, 760, 20, WHITE],
-                 [20, 580, 760, 20, WHITE],
-                 [390, 50, 20, 500, BLUE],
-                 [590, 30, 20, 500, BLUE],
+        # Make the walls. (x_pos, y_pos, width, height, color)
+        walls = [[0, 0, 20, 250, BLACK],
+                 [0, 350, 20, 250, BLACK],
+                 [780, 0, 20, 250, BLACK],
+                 [780, 350, 20, 250, BLACK],
+                 [20, 0, 760, 20, BLACK],
+                 [20, 580, 760, 20, BLACK],
+                 [210, 30, 20, 500, DARKRED],
+                 [390, 70, 20, 500, DARKRED],
+                 [590, 30, 20, 500, DARKRED],
                 ]
  
         # Loop through the list. Create the wall, add it to the list
@@ -147,14 +142,14 @@ class Room_two(Room):
     def __init__(self):
         super().__init__()
  
-        walls = [[0, 0, 20, 250, RED],
-                 [0, 350, 20, 250, RED],
-                 [780, 0, 20, 250, RED],
-                 [780, 350, 20, 250, RED],
-                 [20, 0, 760, 20, RED],
-                 [20, 580, 760, 20, RED],
-                 [190, 50, 20, 500, GREEN],
-                 [590, 50, 20, 500, GREEN]
+        walls = [[0, 0, 20, 250, DARKRED],
+                 [0, 350, 20, 250, DARKRED],
+                 [780, 0, 20, 250, DARKRED],
+                 [780, 350, 20, 250, DARKRED],
+                 [20, 0, 760, 20, DARKRED],
+                 [20, 580, 760, 20, DARKRED],
+                 [190, 20, 20, 500, WHITE],
+                 [590, 80, 20, 500, WHITE]
                 ]
  
         for item in walls:
@@ -167,26 +162,47 @@ class Room_three(Room):
     def __init__(self):
         super().__init__()
  
-        walls = [[0, 0, 20, 250, PURPLE],
-                 [0, 350, 20, 250, PURPLE],
-                 [780, 0, 20, 250, PURPLE],
-                 [780, 350, 20, 250, PURPLE],
-                 [20, 0, 760, 20, PURPLE],
-                 [20, 580, 760, 20, PURPLE]
+        walls = [[0, 0, 20, 250, WHITE],
+                 [0, 350, 20, 250, WHITE],
+                 [780, 0, 20, 250, WHITE],
+                 [780, 350, 20, 250, WHITE],
+                 [20, 0, 760, 20, WHITE],
+                 [20, 580, 760, 20, WHITE]
                 ]
  
         for item in walls:
             wall = Wall(item[0], item[1], item[2], item[3], item[4])
             self.wall_list.add(wall)
  
-        for x in range(100, 800, 100):
-            for y in range(50, 451, 300):
-                wall = Wall(x, y, 20, 200, RED)
+        # for x in range(90, 800, 100):
+        #     for y in range(50, 451, 300):
+        #         wall = Wall(x, y, 20, 200, DARKRED)
+                # self.wall_list.add(wall)
+
+        # for x in range(150, 700, 100):
+        #     wall = Wall(x, 200, 20, 200, WHITE)
+        #     self.wall_list.add(wall)
+
+        for x in range(90, 400, 110):
+            for y in range(25, 225, 150):
+                wall = Wall(x, y, 20, 200, DARKRED)
+                self.wall_list.add(wall)
+
+        for x in range(400, 700, 110):
+            for y in range(225, 451, 150):
+                wall = Wall(x, y, 20, 200, DARKRED)
                 self.wall_list.add(wall)
  
-        for x in range(150, 700, 100):
-            wall = Wall(x, 200, 20, 200, WHITE)
+        for x in range(150, 350, 100):
+            wall = Wall(x, 400, 20, 600, WHITE)
             self.wall_list.add(wall)
+
+        for x in range(445, 675, 112):
+            wall = Wall(x, 40, 20, 300, WHITE)
+            self.wall_list.add(wall)
+
+        self.bg = pygame.image.load('assets/bg3.png')
+        self.logo = pygame.image.load('assets/cf_logo.png')
  
  
 def main():
@@ -202,7 +218,7 @@ def main():
     pygame.display.set_caption('Creep Craze Maze')
  
     # Create the player
-    player = Player(50, 50)
+    player = Player(50, 300)
     movingsprites = pygame.sprite.Group()
     movingsprites.add(player)
  
@@ -221,16 +237,24 @@ def main():
     current_room = rooms[current_room_no]
  
     clock = pygame.time.Clock()
+
+    # timer
+    ticks = pygame.time.get_ticks()
  
     done = False
  
     while not done:
- # all this just controls the keys, and is straight from the docs!
+        # countdown timer
+        seconds = (pygame.time.get_ticks() - ticks) / 1000
+        if seconds > 30:
+            break
+        print(seconds)
+
+        # key controls
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     done = True
-
  
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
@@ -285,15 +309,31 @@ def main():
                 player.rect.x = 0
  
         # --- Drawing ---
-        screen.fill(BLACK)
+        if current_room_no == 0:
+            screen.blit(room.bg, (0,0))
+            screen.blit(player.vince, (60,50))
+            screen.blit(player.hexx, (625,80))
+        elif current_room_no == 1:
+            screen.fill(BLACK)
+            screen.blit(player.vince, (350,50))
+            screen.blit(player.hexx, (350,350))
+        elif current_room_no == 2:
+            screen.fill(BLACK)
+            screen.blit(room.logo, (30,30))
+            screen.blit(room.logo, (30,520))
+            screen.blit(room.logo, (725,30))
+            screen.blit(room.logo, (725,520))
+
+        else:
+            screen.fill(BLACK)
  
         movingsprites.draw(screen)
         current_room.wall_list.draw(screen)
- 
         pygame.display.flip()
  
         clock.tick(60)
- 
+
+    print("TIME'S UP!")
     pygame.quit()
  
 if __name__ == "__main__":
