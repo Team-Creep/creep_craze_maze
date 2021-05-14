@@ -225,7 +225,7 @@ def main():
     done = False
  
     while not done:
- 
+ # all this just controls the keys, and is straight from the docs!
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
