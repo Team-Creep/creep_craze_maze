@@ -1,4 +1,5 @@
 import pygame
+
  
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -52,11 +53,13 @@ class Player(pygame.sprite.Sprite):
         """ Control player speed, keypress style """
         self.change_x += x
         self.change_y += y
+
  
     def move(self, walls):
         """ move the player """
  
         # Move left/right
+
         self.rect.x += self.change_x
  
         # Did this update cause us to hit a wall?
@@ -79,6 +82,7 @@ class Player(pygame.sprite.Sprite):
  
             # Reset our position based on the top/bottom of the object.
             if self.change_y > 0:
+
                 self.rect.bottom = h.rect.top
             else:
                 self.rect.top = h.rect.bottom
@@ -102,15 +106,19 @@ class Room_one(Room):
     def __init__(self):
         super().__init__()
         # Make the walls. (x_pos, y_pos, width, height)
+
  
         # This is a list of walls. Each is in the form [x, y, width, height]
         walls = [[0, 0, 20, 250, WHITE],
+
                  [0, 350, 20, 250, WHITE],
                  [780, 0, 20, 250, WHITE],
                  [780, 350, 20, 250, WHITE],
                  [20, 0, 760, 20, WHITE],
                  [20, 580, 760, 20, WHITE],
+
                  [390, 50, 20, 500, BLUE]
+
                 ]
  
         # Loop through the list. Create the wall, add it to the list
@@ -198,6 +206,7 @@ def main():
     current_room = rooms[current_room_no]
  
     clock = pygame.time.Clock()
+
     
     # timer
     ticks = pygame.time.get_ticks()
@@ -211,6 +220,7 @@ def main():
             break
         print(seconds)
  
+
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
@@ -237,6 +247,7 @@ def main():
                     player.speed(0, -5)
  
         # --- Game Logic ---
+
         player.move(current_room.wall_list)
  
         if player.rect.x < -15:
@@ -269,14 +280,17 @@ def main():
  
         # --- Drawing ---
         screen.fill(BLACK)
+
         movingsprites.draw(screen)
         current_room.wall_list.draw(screen)
  
         pygame.display.flip()
  
         clock.tick(60)
+
     print("TIME'S UP!")
     pygame.quit()
  
 if __name__ == "__main__":
     main()
+
