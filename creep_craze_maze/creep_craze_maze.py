@@ -46,18 +46,16 @@ class Wall(pygame.sprite.Sprite):
 class Player(pygame.sprite.Sprite):
     """ Allow the player to do things. """
 
-    # Start you x and y positions. Like, be creative with the numbers, 0, 0 is used a lot. 
+    # Sets speed of x, y positions. x needs to be 0, y can be upped, but it's impossible to move after 4!
 
     where_does_x_move_to = 0
     where_does_y_move_to = 3
 
     def __init__(self, x, y):
         # Inits are widely used and important. 
-        # AGAIN, X AND Y ARE INCLUDED IN THE RECT DOCUMENTATION
-        # it is now 3:15 am. I am so tired and I have to get up at 8 to drive to NYC and tell people my Father in law is dying. 
 
         super().__init__()
-        # look in the WeNeedAWallLetsMakeItDifferent class, for information on why we use this instead of a regular class. setup. 
+        # look in the Wall class, for information on why we use this instead of a regular class. setup. 
 
         self.image = pygame.Surface([20, 20])
         self.image.fill(WHITE)
@@ -82,7 +80,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.x += self.where_does_x_move_to
 
         # Lets find out if we are hitting a wall, that way there is resistance in the game
-        # ON SPRITE AND SPRITECOLLIDE> these are part of pygame> there is no changing htis basic structure> none of this code is hard. it is what it is.
+        # ON SPRITE AND SPRITECOLLIDE> these are part of pygame> there is no changing htis basic structure.
         is_the_player_intersecting_at_all = pygame.sprite.spritecollide(self, walls, False)
         for h in is_the_player_intersecting_at_all:
 
