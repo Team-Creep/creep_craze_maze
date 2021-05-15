@@ -45,6 +45,7 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load('assets/roger.png')
         self.hexx = pygame.image.load('assets/Hexx.png')
         self.vince = pygame.image.load('assets/vince.png')
+        self.john = pygame.image.load('assets/big_john.png')
 
         # This sets up our starting position, using the aforementioned docs. 
         self.rect = self.image.get_rect()
@@ -173,15 +174,6 @@ class Room_three(Room):
         for item in walls:
             wall = Wall(item[0], item[1], item[2], item[3], item[4])
             self.wall_list.add(wall)
- 
-        # for x in range(90, 800, 100):
-        #     for y in range(50, 451, 300):
-        #         wall = Wall(x, y, 20, 200, DARKRED)
-                # self.wall_list.add(wall)
-
-        # for x in range(150, 700, 100):
-        #     wall = Wall(x, 200, 20, 200, WHITE)
-        #     self.wall_list.add(wall)
 
         for x in range(90, 400, 110):
             for y in range(25, 225, 150):
@@ -201,9 +193,31 @@ class Room_three(Room):
             wall = Wall(x, 40, 20, 300, WHITE)
             self.wall_list.add(wall)
 
+
+class Room_four(Room):
+    """This creates all the walls in room 2"""
+    def __init__(self):
+        super().__init__()
+ 
+        walls = [[0, 0, 20, 250, WHITE],
+                 [0, 350, 20, 250, WHITE],
+                 [780, 0, 20, 250, WHITE],
+                 [780, 350, 20, 250, WHITE],
+                 [20, 0, 760, 20, WHITE],
+                 [20, 580, 760, 20, WHITE],
+                 [100, 20, 20, 100, WHITE],
+                 [100, 100, 100, 20, WHITE],
+                 [200, 100, 20, 140, WHITE],
+                 [200, 240, 50, 20, WHITE],
+                #  [600, 80, 20, 100, WHITE]
+                ]
+ 
+        for item in walls:
+            wall = Wall(item[0], item[1], item[2], item[3], item[4])
+            self.wall_list.add(wall)
+ 
         self.bg = pygame.image.load('assets/bg3.png')
         self.logo = pygame.image.load('assets/cf_logo.png')
- 
  
 def main():
     """ Call game to life """
@@ -232,6 +246,9 @@ def main():
  
     room = Room_three()
     rooms.append(room)
+
+    room = Room_four()
+    rooms.append(room)
  
     current_room_no = 0
     current_room = rooms[current_room_no]
@@ -245,10 +262,10 @@ def main():
  
     while not done:
         # countdown timer
-        seconds = (pygame.time.get_ticks() - ticks) / 1000
-        if seconds > 30:
-            break
-        print(seconds)
+        # seconds = (pygame.time.get_ticks() - ticks) / 1000
+        # if seconds > 30:
+        #     break
+        # print(seconds)
 
         # key controls
         for event in pygame.event.get():
@@ -281,32 +298,38 @@ def main():
         player.move(current_room.wall_list)
  
         if player.rect.x < -15:
-            if current_room_no == 0:
-                current_room_no = 2
-                current_room = rooms[current_room_no]
-                player.rect.x = 790
-            elif current_room_no == 2:
-                current_room_no = 1
-                current_room = rooms[current_room_no]
-                player.rect.x = 790
-            else:
-                current_room_no = 0
-                current_room = rooms[current_room_no]
-                player.rect.x = 790
+            # if current_room_no == 0:
+            #     current_room_no = 2
+            #     current_room = rooms[current_room_no]
+            #     player.rect.x = 790
+            # elif current_room_no == 2:
+            #     current_room_no = 1
+            #     current_room = rooms[current_room_no]
+            #     player.rect.x = 790
+            # else:
+            current_room_no = 0
+            current_room = rooms[current_room_no]
+            # player.rect.x = 790
+            player.rect.x = 0
  
         if player.rect.x > 801:
             if current_room_no == 0:
                 current_room_no = 1
+                # current_room_no = 3
                 current_room = rooms[current_room_no]
                 player.rect.x = 0
             elif current_room_no == 1:
                 current_room_no = 2
                 current_room = rooms[current_room_no]
                 player.rect.x = 0
-            else:
-                current_room_no = 0
+            elif current_room_no == 2:
+                current_room_no = 3
                 current_room = rooms[current_room_no]
                 player.rect.x = 0
+            else:
+                # current_room_no = 0
+                # current_room = rooms[current_room_no]
+                player.rect.x = 750
  
         # --- Drawing ---
         if current_room_no == 0:
@@ -323,7 +346,13 @@ def main():
             screen.blit(room.logo, (30,520))
             screen.blit(room.logo, (725,30))
             screen.blit(room.logo, (725,520))
-
+        elif current_room_no == 3:
+            screen.fill(BLACK)
+            screen.blit(player.john, (300,150))
+            screen.blit(room.logo, (30,30))
+            screen.blit(room.logo, (30,520))
+            screen.blit(room.logo, (725,30))
+            screen.blit(room.logo, (725,520))
         else:
             screen.fill(BLACK)
  
