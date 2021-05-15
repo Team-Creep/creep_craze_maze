@@ -43,7 +43,7 @@ class Player(pygame.sprite.Sprite):
         # self.image = pygame.Surface([20, 20])
         # self.image.fill(WHITE)
         self.image = pygame.image.load('assets/roger.png')
-        self.hexx = pygame.image.load('assets/Hexx.png')
+        self.hexx = pygame.image.load('assets/hexx.png')
         self.vince = pygame.image.load('assets/vince.png')
         self.john = pygame.image.load('assets/big_john.png')
 
@@ -116,7 +116,9 @@ class Room(object):
         self.enemy_sprites = pygame.sprite.Group()
  
  
+
 class Room_one(Room):
+
     """This creates all the walls in room 1"""
     def __init__(self):
         super().__init__()
@@ -193,7 +195,6 @@ class Room_three(Room):
             wall = Wall(x, 40, 20, 300, WHITE)
             self.wall_list.add(wall)
 
-
 class Room_four(Room):
     """This creates all the walls in room 2"""
     def __init__(self):
@@ -201,15 +202,83 @@ class Room_four(Room):
  
         walls = [[0, 0, 20, 250, WHITE],
                  [0, 350, 20, 250, WHITE],
+
                  [780, 0, 20, 250, WHITE],
                  [780, 350, 20, 250, WHITE],
+
                  [20, 0, 760, 20, WHITE],
                  [20, 580, 760, 20, WHITE],
+
+                 # bottom entry wall
+                 [10, 350, 120, 20, WHITE],
+                 [130, 350, 20, 60, WHITE],
+                 [130, 410, 80, 20, WHITE],
+
+                 # top entry wall
+                 [10, 230, 120, 20, WHITE],
+                 [130, 200, 20, 50, WHITE],
+                 [100, 200, 50, 20, WHITE],
+                 [100, 150, 20, 55, WHITE],
+                 [55, 150, 60, 20, WHITE],
+                 [55, 150, 60, 20, WHITE],
+                 [55, 150, 20, 40, WHITE],
+
+                 # bottom left box wall
+                 [100, 480, 20, 120, WHITE],
+                 [100, 480, 225, 20, WHITE],
+                 [325, 480, 20, 100, WHITE],
+
+                 # box within the box
+                 [150, 530, 20, 90, WHITE],
+                 [150, 530, 150, 20, WHITE],
+                 [280, 530, 20, 90, WHITE],
+
+                 # wall starting top left
                  [100, 20, 20, 100, WHITE],
                  [100, 100, 100, 20, WHITE],
                  [200, 100, 20, 140, WHITE],
                  [200, 240, 50, 20, WHITE],
-                #  [600, 80, 20, 100, WHITE]
+                 [240, 240, 20, 210, WHITE],
+
+                 [290, 430, 120, 20, WHITE],
+                 [290, 430, 120, 20, WHITE],
+                 [390, 430, 20, 120, WHITE],
+                 [390, 430, 20, 120, WHITE],
+                 [390, 530, 60, 20, WHITE],
+                 [430, 410, 20, 140, WHITE],
+                 [430, 410, 150, 20, WHITE],
+                 [575, 320, 20, 110, WHITE],
+                 [575, 320, 60, 20, WHITE],
+                 [635, 320, 20, 120, WHITE],
+                 [635, 320, 20, 140, WHITE],
+
+                 [655, 440, 60, 20, WHITE],
+
+                 [715, 220, 20, 240, WHITE],
+                 [570, 220, 160, 20, WHITE],
+                 [570, 140, 20, 100, WHITE],
+                 [480, 140, 100, 20, WHITE],
+                 [480, 100, 20, 60, WHITE],
+                 [320, 100, 160, 20, WHITE],
+                 [320, 120, 20, 60, WHITE],
+                 [260, 160, 80, 20, WHITE],
+                 [260, 60, 20, 120, WHITE],
+                 [260, 60, 375, 20, WHITE],
+                 [660, 20, 20, 60, WHITE],
+
+                 # exit
+                 [620, 120, 250, 20, WHITE],
+                 [650, 140, 20, 50, WHITE],
+
+                 [700, 165, 100, 20, WHITE],
+                 [700, 165, 20, 55, WHITE],
+                 
+                 [680, 490, 100, 20, WHITE],
+                 [680, 500, 20, 60, WHITE],
+                 [580, 540, 100, 20, WHITE],
+                 [580, 460, 20, 80, WHITE],
+                 [500, 460, 80, 20, WHITE],
+                 [500, 460, 20, 60, WHITE],
                 ]
  
         for item in walls:
@@ -257,15 +326,37 @@ def main():
 
     # timer
     ticks = pygame.time.get_ticks()
+
+    # scoring
+    scores = {
+        # zero to three seconds before 30 sec
+        'three': 500,
+        # three to five sec
+        'five': 1000,
+        # five and above
+        'ten': 2000
+    }
  
     done = False
  
     while not done:
         # countdown timer
-        # seconds = (pygame.time.get_ticks() - ticks) / 1000
-        # if seconds > 30:
-        #     break
-        # print(seconds)
+        seconds = (pygame.time.get_ticks() - ticks) / 1000
+        print(seconds)
+        if seconds > 30:
+            print("time's up")
+            break
+        elif current_room_no == 3 and player.rect.x > 765:
+            final_time = seconds
+            time_diff = 30 - int(final_time)
+            if time_diff >= 5:
+                print("final score: ", scores['ten'])
+                break
+            if time_diff >= 3:
+                print("final score: ", scores['five'])
+                break
+            else:
+                print("final score: ", scores['three'])
 
         # key controls
         for event in pygame.event.get():
@@ -298,24 +389,13 @@ def main():
         player.move(current_room.wall_list)
  
         if player.rect.x < -15:
-            # if current_room_no == 0:
-            #     current_room_no = 2
-            #     current_room = rooms[current_room_no]
-            #     player.rect.x = 790
-            # elif current_room_no == 2:
-            #     current_room_no = 1
-            #     current_room = rooms[current_room_no]
-            #     player.rect.x = 790
-            # else:
             current_room_no = 0
             current_room = rooms[current_room_no]
-            # player.rect.x = 790
             player.rect.x = 0
  
         if player.rect.x > 801:
             if current_room_no == 0:
                 current_room_no = 1
-                # current_room_no = 3
                 current_room = rooms[current_room_no]
                 player.rect.x = 0
             elif current_room_no == 1:
@@ -327,8 +407,6 @@ def main():
                 current_room = rooms[current_room_no]
                 player.rect.x = 0
             else:
-                # current_room_no = 0
-                # current_room = rooms[current_room_no]
                 player.rect.x = 750
  
         # --- Drawing ---
@@ -362,7 +440,6 @@ def main():
  
         clock.tick(60)
 
-    print("TIME'S UP!")
     pygame.quit()
  
 if __name__ == "__main__":
